@@ -1,0 +1,148 @@
+/* ===== Section Hero (wrapper) ===== */
+/* Devient le référentiel de positionnement pour le fond animé */
+.sec-hero {
+  position: relative;
+  overflow: hidden; /* empêche le canvas de déborder de la section */
+  border-bottom: #ffffff 8px solid;
+}
+
+/* ===== Conteneur du fond animé ===== */
+/* GradientWaves occupe uniquement .sec-hero, pas tout le viewport */
+.gradient-waves-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: auto; /* garde l'interaction souris (parallaxe) active */
+}
+
+/* ===== Contenu Hero ===== */
+.Hero {
+  position: relative;
+  z-index: 1; /* passe au-dessus du canvas */
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6vw 8vw;
+  color: #f5f5f5;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  pointer-events: none; /* laisse la souris "traverser" jusqu'au canvas */
+}
+
+/* Les éléments interactifs redeviennent cliquables */
+.Hero__buttons {
+  pointer-events: auto;
+}
+
+/* Voile sombre entre les vagues et le texte pour garantir la lisibilité */
+.Hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(5, 5, 5, 0.35) 0%,
+    rgba(5, 5, 5, 0.65) 70%,
+    rgba(5, 5, 5, 0.85) 100%
+  );
+  z-index: -1;
+}
+
+/* ===== Contenu texte ===== */
+.Hero__content {
+  max-width: 720px;
+  animation: heroFadeIn 1s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.Hero__content h1 {
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem 0;
+  color: #ffffff;
+}
+
+.Hero__content p {
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  color: #c9c9c9;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ===== Boutons ===== */
+.Hero__buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.Hero__button {
+  padding: 0.85rem 1.8rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  backdrop-filter: blur(6px);
+  transition: all 0.25s ease;
+  animation: heroFadeIn 1.2s cubic-bezier(.16,1,.3,1) forwards;
+  text-decoration: none;
+}
+
+.Hero__button:hover {
+  background: #ffffff;
+  color: #0c0c0e;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Premier bouton en accent plein (optionnel, pour hiérarchiser les CTA) */
+.Hero__buttons .Hero__button:first-child {
+  background: #ffffff;
+  color: #0c0c0e;
+}
+
+.Hero__buttons .Hero__button:first-child:hover {
+  background: #e2e2e2;
+}
+
+@keyframes heroFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(18px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .Hero {
+    padding: 8vw 6vw;
+  }
+  .Hero__buttons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+  }
+  .Hero__button {
+    width: 100%;
+  }
+}

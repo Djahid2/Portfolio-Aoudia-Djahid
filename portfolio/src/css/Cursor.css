@@ -1,0 +1,58 @@
+/* Cache le curseur natif partout sur le site */
+* {
+  cursor: none !important;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 9999;
+  will-change: transform;
+}
+
+/* Petit point central, suit la souris instantanément */
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: #3aa0ff;
+  transition: opacity 0.2s ease;
+}
+
+/* Cercle extérieur, suit avec un léger retard (effet fluide) */
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease,
+    border-color 0.25s ease, background 0.25s ease, opacity 0.2s ease;
+}
+
+/* Agrandissement au survol des éléments interactifs */
+.cursor-ring--hover {
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  border-color: #3aa0ff;
+  background: rgba(58, 160, 255, 0.1);
+}
+
+.cursor--hidden {
+  opacity: 0;
+}
+
+/* Le curseur custom n'a de sens que sur pointeur précis (souris) */
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+  * {
+    cursor: auto !important;
+  }
+}
