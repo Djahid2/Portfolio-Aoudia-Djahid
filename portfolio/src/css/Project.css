@@ -75,7 +75,7 @@
 .project-number {
   position: absolute;
   top: 4vh;
-  right: 0;
+  right: 6rem;
   font-size: clamp(3.5rem, 9vw, 7rem);
   font-weight: 800;
   color: transparent;
